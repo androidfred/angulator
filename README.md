@@ -1,6 +1,8 @@
-JavaScript/Angular port of Java code found at https://github.com/androidfred/positioncalculator and https://github.com/androidfred/positionweb, which is running live on http://positioncalculator.bedobi.com.
+I have a trading calculator for fixed percent risk position sizing running on http://positioncalculator.bedobi.com. This app is written in Java, source code at https://github.com/androidfred/positioncalculator and https://github.com/androidfred/positionweb.
 
-Important improvements yet to be made include:
+This is a JavaScript/Angular port of that app. This port is running on http://angulator.bedobi.com.
+
+Important improvements yet to be made on this port include:
 * More test coverage
 * Browserification to enable use of node modules in the front end (currently the code from existing node module https://github.com/androidfred/positioncalculatorjs is simply copy-pasted into a service)
 * More use of directives to minimize duplication.
