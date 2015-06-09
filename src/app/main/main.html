@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+
+      <h4>Trading Calculator for Fixed Percent Risk Position Sizing</h4>
+
+      <p>Money management rules help reduce risk and preserve capital. Never risking more than 2% of CAPITAL on
+        any individual trade is a widely adhered to rule among professional traders.</p>
+
+      <p>Expects all values marked <span>$</span> to be in the same currency. (not necessarily USD)
+        Does not take into account slippage, commissions etc.</p>
+
+      <form id="form" role="form" name="form" novalidate>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <div class="form-group" ng-class="{'has-error': form.capital.$invalid, 'has-success': !form.capital.$invalid}">
+              <label class="control-label" for="capital">Capital:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><span>$</span></span>
+                <input class="form-control" type="number" id="capital" placeholder="Enter capital" name="capital" ng-model="input.capital" required min="1" max="1000000000000">
+              </div>
+              <p id="capitalRequired" class="help-block error" ng-show="form.capital.$error.required">Capital value required</p>
+              <p id="capitalNumber" class="help-block error" ng-show="form.capital.$error.number">Must be a number</p>
+              <p id="capitalMin" class="help-block error" ng-show="form.capital.$error.min">Minimum allowed value is 1</p>
+              <p id="capitalMax" class="help-block error" ng-show="form.capital.$error.max">Maximum allowed value is 1000000000000</p>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': form.tolerableRiskInPercentOfCapitalPerTrade.$invalid, 'has-success': !form.tolerableRiskInPercentOfCapitalPerTrade.$invalid}">
+              <label class="control-label" for="risk">Tolerable risk in percent of CAPITAL per trade:</label>
+              <div class="input-group">
+                <span class="input-group-addon">%</span>
+                <input class="form-control" type="number" id="risk"
+                       placeholder="Enter tolerable risk in percent of CAPITAL per trade" name="tolerableRiskInPercentOfCapitalPerTrade" ng-model="input.tolerableRiskInPercentOfCapitalPerTrade" required min="1" max="99">
+              </div>
+              <p id="riskRequired" class="help-block error" ng-show="form.tolerableRiskInPercentOfCapitalPerTrade.$error.required">Risk value required</p>
+              <p id="riskNumber" class="help-block error" ng-show="form.tolerableRiskInPercentOfCapitalPerTrade.$error.number">Must be a number</p>
+              <p id="riskMin" class="help-block error" ng-show="form.tolerableRiskInPercentOfCapitalPerTrade.$error.min">Minimum allowed value is 1</p>
+              <p id="riskMax" class="help-block error" ng-show="form.tolerableRiskInPercentOfCapitalPerTrade.$error.max">Maximum allowed value is 99</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <div class="form-group" ng-class="{'has-error': form.direction.$invalid, 'has-success': !form.direction.$invalid}">
+              <label class="control-label" for="direction">Trade direction:</label>
+              <select class="form-control" id="direction" name="direction" ng-model="input.direction" ng-options="direction.name for direction in directions"></select>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': form.price.$invalid, 'has-success': !form.price.$invalid}">
+              <label class="control-label" for="price">Price per unit:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><span>$</span></span>
+                <input class="form-control" type="number" id="price"
+                       placeholder="Enter price per unit" name="price" ng-model="input.pricePerUnit" required step="0.01" min="0.01" max="1000000000000">
+              </div>
+              <p id="priceRequired" class="help-block error" ng-show="form.price.$error.required">Price value required</p>
+              <p id="priceNumber" class="help-block error" ng-show="form.price.$error.number">Must be a number</p>
+              <p id="priceMin" class="help-block error" ng-show="form.price.$error.min">Minimum allowed value is 0.01</p>
+              <p id="priceMax" class="help-block error" ng-show="form.price.$error.max">Maximum allowed value is 1000000000000</p>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': form.stopLossPricePerUnit.$invalid, 'has-success': !form.stopLossPricePerUnit.$invalid}">
+              <label class="control-label" for="stopLossPrice">Desired stop loss price per unit:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><span>$</span></span>
+                <input class="form-control" type="number" id="stopLossPrice"
+                       placeholder="Enter desired stop loss price per unit" name="stopLossPricePerUnit" ng-model="input.stopLossPricePerUnit" required step="0.01" min="0.01" max="1000000000000">
+              </div>
+              <p id="stopLossRequired" class="help-block error" ng-show="form.stopLossPricePerUnit.$error.required">Stop loss value required</p>
+              <p id="stopLossNumber" class="help-block error" ng-show="form.stopLossPricePerUnit.$error.number">Must be a number</p>
+              <p id="stopLossMin" class="help-block error" ng-show="form.stopLossPricePerUnit.$error.min">Minimum allowed value is 0.01</p>
+              <p id="stopLossMax" class="help-block error" ng-show="form.stopLossPricePerUnit.$error.max">Maximum allowed value is 1000000000000</p>
+            </div>
+
+          </div>
+        </div>
+        <input class="btn btn-primary" id="calculateButton" type="submit" ng-click="calculate(input)" value="Calculate" />
+      </form>
+
+      <br>
+
+      <div id="feedback">
+
+      <div id ="error" class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
+
+      <div ng-show="resultVisible()" id="result">
+        <div class="alert alert-info" role="alert" >
+          <p>
+            Total tolerable risk per trade is <span>$</span><strong><span id="totalTolerableRiskPerTrade">{{position.totalTolerableRiskPerTrade}}</span></strong>. If stop loss triggers at desired price per unit, per unit loss is <span>$</span><strong>{{position.stopLossPerUnitLoss}}</strong> and total loss is <span>$</span><strong>{{position.stopLossTotalLoss}}</strong>.
+          </p>
+
+          <p><strong>{{position.unitsToBuy}}</strong> units can be bought for a total of
+            <span>$</span><strong>{{position.total}}</strong>.</p>
+        </div>
+        <br>
+      </div>
+
+      </div>
+
+      <div class="well">
+        <p>
+          USE AT OWN DISCRETION AND RISK. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+          EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+          A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM,
+          DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </p>
+      </div>
+
+      <p>Provide feedback, report bugs and view source code at
+        <a target="_blank" href="https://github.com/androidfred/positionweb">
+          https://github.com/androidfred/positionweb</a></p>
+    </div>
+  </div>
+</div>
