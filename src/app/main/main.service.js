@@ -24,19 +24,19 @@ angular.module('angulator')
       var position = {};
 
       position.getTotalTolerableRiskPerTrade = function () {
-        return position.getCapital() * (position.getTolerableRiskInPercentOfCapitalPerTrade() / 100);
+        return (position.getCapital() * (position.getTolerableRiskInPercentOfCapitalPerTrade() / 100)).toFixed(2);
       };
 
       position.getStopLossPerUnitLoss = function () {
         if (position.getDirection().toLowerCase() === 'long') {
-          return position.getPricePerUnit() - position.getStopLossPricePerUnit();
+          return (position.getPricePerUnit() - position.getStopLossPricePerUnit()).toFixed(2);
         } else {
-          return position.getStopLossPricePerUnit() - position.getPricePerUnit();
+          return (position.getStopLossPricePerUnit() - position.getPricePerUnit()).toFixed(2);
         }
       };
 
       position.getStopLossTotalLoss = function () {
-        return position.getStopLossPerUnitLoss() * position.getUnitsToBuy();
+        return (position.getStopLossPerUnitLoss() * position.getUnitsToBuy()).toFixed(2);
       };
 
       position.getUnitsToBuy = function () {
@@ -49,12 +49,12 @@ angular.module('angulator')
       };
 
       position.getTotal = function () {
-        return position.getUnitsToBuy() * position.getPricePerUnit();
+        return (position.getUnitsToBuy() * position.getPricePerUnit()).toFixed(2);
       };
 
       position.capital = function (newCapital) {
         basicValidate(newCapital);
-        capital = newCapital;
+        capital = newCapital.toFixed(2);
         return position;
       };
       position.getCapital = function () {
@@ -66,7 +66,7 @@ angular.module('angulator')
         if (newTolerableRiskInPercentOfCapitalPerTrade >= 100) {
           throw new TypeError('tolerable risk in percent of capital per trade must be less than 100');
         }
-        tolerableRiskInPercentOfCapitalPerTrade = newTolerableRiskInPercentOfCapitalPerTrade;
+        tolerableRiskInPercentOfCapitalPerTrade = newTolerableRiskInPercentOfCapitalPerTrade.toFixed(2);
         return position;
       };
       position.getTolerableRiskInPercentOfCapitalPerTrade = function () {
@@ -92,7 +92,7 @@ angular.module('angulator')
 
       position.pricePerUnit = function (newPricePerUnit) {
         basicValidate(newPricePerUnit);
-        pricePerUnit = newPricePerUnit;
+        pricePerUnit = newPricePerUnit.toFixed(2);
         return position;
       };
       position.getPricePerUnit = function () {
@@ -107,7 +107,7 @@ angular.module('angulator')
         if (position.getDirection().toLowerCase() === 'short' && position.getPricePerUnit() >= newStopLossPricePerUnit) {
           throw new TypeError('stop loss price per unit must be higher than price per unit when short');
         }
-        stopLossPricePerUnit = newStopLossPricePerUnit;
+        stopLossPricePerUnit = newStopLossPricePerUnit.toFixed(2);
         return position;
       };
       position.getStopLossPricePerUnit = function () {
@@ -133,7 +133,4 @@ angular.module('angulator')
         stopLossTotalLoss: position.getStopLossTotalLoss()
       };
     };
-
-
-
   });
