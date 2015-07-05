@@ -7,8 +7,8 @@
       <p>Money management rules help reduce risk and preserve capital. Never risking more than 2% of CAPITAL on
         any individual trade is a widely adhered to rule among professional traders.</p>
 
-      <p>Expects all values marked <span>$</span> to be in the same currency. (not necessarily USD)
-        Does not take into account slippage, commissions etc.</p>
+      <p>Expects all values marked <span>¤</span> to be in the same currency.
+        Rounds all values to two decimals. Does not take into account slippage, commissions etc.</p>
 
       <form id="form" role="form" name="form" novalidate>
 
@@ -18,7 +18,7 @@
             <div class="form-group" ng-class="{'has-error': form.capital.$invalid, 'has-success': !form.capital.$invalid}">
               <label class="control-label" for="capital">Capital:</label>
               <div class="input-group">
-                <span class="input-group-addon"><span>$</span></span>
+                <span class="input-group-addon"><span>¤</span></span>
                 <input class="form-control" type="number" id="capital" placeholder="Enter capital" name="capital" ng-model="input.capital" required min="1" max="1000000000000">
               </div>
               <p id="capitalRequired" class="help-block error" ng-show="form.capital.$error.required">Capital value required</p>
@@ -54,7 +54,7 @@
             <div class="form-group" ng-class="{'has-error': form.price.$invalid, 'has-success': !form.price.$invalid}">
               <label class="control-label" for="price">Price per unit:</label>
               <div class="input-group">
-                <span class="input-group-addon"><span>$</span></span>
+                <span class="input-group-addon"><span>¤</span></span>
                 <input class="form-control" type="number" id="price"
                        placeholder="Enter price per unit" name="price" ng-model="input.pricePerUnit" required step="0.01" min="0.01" max="1000000000000">
               </div>
@@ -67,7 +67,7 @@
             <div class="form-group" ng-class="{'has-error': form.stopLossPricePerUnit.$invalid, 'has-success': !form.stopLossPricePerUnit.$invalid}">
               <label class="control-label" for="stopLossPrice">Desired stop loss price per unit:</label>
               <div class="input-group">
-                <span class="input-group-addon"><span>$</span></span>
+                <span class="input-group-addon"><span>¤</span></span>
                 <input class="form-control" type="number" id="stopLossPrice"
                        placeholder="Enter desired stop loss price per unit" name="stopLossPricePerUnit" ng-model="input.stopLossPricePerUnit" required step="0.01" min="0.01" max="1000000000000">
               </div>
@@ -91,11 +91,11 @@
       <div ng-show="resultVisible()" id="result">
         <div class="alert alert-info" role="alert" >
           <p>
-            Total tolerable risk per trade is <span>$</span><strong><span id="totalTolerableRiskPerTrade">{{position.totalTolerableRiskPerTrade}}</span></strong>. If stop loss triggers at desired price per unit, per unit loss is <span>$</span><strong>{{position.stopLossPerUnitLoss}}</strong> and total loss is <span>$</span><strong>{{position.stopLossTotalLoss}}</strong>.
+            Total tolerable risk per trade is <strong><span id="totalTolerableRiskPerTrade">{{position.totalTolerableRiskPerTrade | currency}}</span></strong>. If stop loss triggers at desired price per unit, per unit loss is <strong>{{position.stopLossPerUnitLoss | currency}}</strong> and total loss is <strong>{{position.stopLossTotalLoss | currency}}</strong>.
           </p>
 
           <p><strong>{{position.unitsToBuy}}</strong> units can be bought for a total of
-            <span>$</span><strong>{{position.total}}</strong>.</p>
+            <strong>{{position.total | currency}}</strong>.</p>
         </div>
         <br>
       </div>
