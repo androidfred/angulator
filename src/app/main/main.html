@@ -91,11 +91,11 @@
       <div ng-show="resultVisible()" id="result">
         <div class="alert alert-info" role="alert" >
           <p>
-            Total tolerable risk per trade is <strong><span id="totalTolerableRiskPerTrade">{{position.totalTolerableRiskPerTrade | currency}}</span></strong>. If stop loss triggers at desired price per unit, per unit loss is <strong>{{position.stopLossPerUnitLoss | currency}}</strong> and total loss is <strong>{{position.stopLossTotalLoss | currency}}</strong>.
+            Total tolerable risk per trade is <strong><span id="totalTolerableRiskPerTrade">{{position.totalTolerableRiskPerTrade | currency:"¤"}}</span></strong>. If stop loss triggers at desired price per unit, per unit loss is <strong>{{position.stopLossPerUnitLoss | currency:"¤"}}</strong> and total loss is <strong>{{position.stopLossTotalLoss | currency:"¤"}}</strong>.
           </p>
 
           <p><strong>{{position.unitsToBuy}}</strong> units can be bought for a total of
-            <strong>{{position.total | currency}}</strong>.</p>
+            <strong>{{position.total | currency:"¤"}}</strong>.</p>
         </div>
         <br>
       </div>
