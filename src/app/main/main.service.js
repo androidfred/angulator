@@ -40,7 +40,7 @@ angular.module('angulator')
       };
 
       position.getUnitsToBuy = function () {
-        var result = (position.getTotalTolerableRiskPerTrade() / position.getStopLossPerUnitLoss()).toFixed(0);
+        var result = Math.floor((position.getTotalTolerableRiskPerTrade() / position.getStopLossPerUnitLoss()));
         if (position.getCapital() <= (result * position.getPricePerUnit())) {
           return 0;
         } else {
