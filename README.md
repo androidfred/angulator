@@ -1,4 +1,4 @@
-Angular rewrite of app previously written in Java (Java app source code can be found at http://github.com/androidfred/positionicalculator and http://github.com/androidfred/positionweb, but it is no longer deployed anywhere)
+Angular replacement for app originally written in Java. (http://github.com/androidfred/positionicalculator) Not very Object Oriented, can be improved.
 
 ## Unlicense
 This is free and unencumbered software released into the public domain.
