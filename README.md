@@ -1,4 +1,4 @@
-Angular replacement for app originally written in Java. (http://github.com/androidfred/positionicalculator) Not very Object Oriented, can be improved.
+Angular replacement for app originally written in Java. (http://github.com/androidfred/positioncalculator)
 
 ## Unlicense
 This is free and unencumbered software released into the public domain.
