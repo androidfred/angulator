@@ -1,13 +1,4 @@
-I have a trading calculator for fixed percent risk position sizing running on http://positioncalculator.bedobi.com. That app is written in Java. (source code at http://github.com/androidfred/positionweb)
-
-This is a JavaScript/Angular port of that app. This port is running on http://angulator.bedobi.com.
-
-Important improvements yet to be made on this port include:
-* More test coverage
-* Browserification to enable use of node modules in the front end (currently the code from existing node module http://github.com/androidfred/positioncalculatorjs is simply copy-pasted into a service)
-* More use of directives to minimize duplication.
-
-As such, current users of http://positioncalculator.bedobi.com will not be moved to this port yet.
+Angular replacement for app originally written in Java. (http://github.com/androidfred/positionicalculator) Not very Object Oriented, can be improved.
 
 ## Unlicense
 This is free and unencumbered software released into the public domain.
